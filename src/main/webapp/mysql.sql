@@ -16,6 +16,7 @@ CREATE TABLE namu_member(
     admin   VARCHAR(1)     DEFAULT 'N'
 );
 
+insert into namu_member(name,id,pw,email) values('김테스트','njsk2002','0000','njsk2002@gmail.com');
 select * from namu_member;
 
 =====게시판 테이블 =======================================
@@ -33,6 +34,15 @@ CREATE TABLE namu_board(
     FOREIGN KEY (bid) REFERENCES namu_member(id)
     ON DELETE CASCADE
 );
+
+select * from namu_board;
+insert into namu_board(bid,title,content,writer) values('njsk2002','테스트13','테스트입니다.','njsk2002'); 
+insert into namu_board(bid,title,content,writer) values('njsk2002','테스트14','테스트입니다.','njsk2002'); 
+insert into namu_board(bid,title,content,writer) values('njsk2002','테스트15','테스트입니다.','njsk2002'); 
+insert into namu_board(bid,title,content,writer) values('njsk2002','테스트16','테스트입니다.','njsk2002'); 
+insert into namu_board(bid,title,content,writer) values('njsk2002','테스트17','테스트입니다.','njsk2002'); 
+insert into namu_board(bid,title,content,writer) values('njsk2002','테스트18','테스트입니다.','njsk2002');  
+
 
 ==게시판 댓글========================================================
 DROP table namu_bcomment;

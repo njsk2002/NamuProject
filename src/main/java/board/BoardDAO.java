@@ -2,7 +2,15 @@ package board;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class BoardDAO implements BoardService {
+	
+	@Autowired
+	SqlSession sql;
 
 	@Override
 	public int board_insert(BoardVO vo) {
@@ -11,9 +19,10 @@ public class BoardDAO implements BoardService {
 	}
 
 	@Override
-	public BoardPage board_list(BoardPage page) {
-		// TODO Auto-generated method stub
-		return null;
+	public BoardPage board_list(BoardPage page) {	
+		page.setTotalList((Integer) sql.selectOne("board.mapper.total",page));
+		page.setList(sql.selectList("board.mapper.list", page));
+		return page;
 	}
 
 	@Override

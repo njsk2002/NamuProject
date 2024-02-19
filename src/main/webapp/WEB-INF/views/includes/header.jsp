@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,7 +13,7 @@
     <title>Album example Â· Bootstrap v5.0</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
-    
+   
     
     <!-- Bootstrap core CSS -->
         <link href="resources/css/bootstrap.min.css" rel="stylesheet">
@@ -31,11 +33,19 @@
         }
       }
     </style>
-
-    
+     <!-- 게시판 -->
+   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+   <link href="resources/css_ext/styles.css" rel="stylesheet" /> 
+      
   </head>
   <body>
     <script src="resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  
+     <!-- 게시판 -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="resources/js_ext/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+   <!-- <script src="resources/js_ext/datatables-simple-demo.js"></script>   -->
 <header>
 
 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" name="form" action="" method="post">
@@ -45,7 +55,9 @@
       <div class="row">
         <div class="col-sm-8 col-md-7 py-4">
           <h4 class="text-white">About</h4>
-          <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+          <p class="text-muted">우리가 꿈꾸는 세상 조금 더 밝은 세상이 될 수 있도록 작은 힘이 나마 조금씩 내어 한걸음 한걸음 앞으로 나가 보세요!. 
+                                 때론 실패하고 가끔 상처도 받고 길을 잃고 헤메기도 하겠지만 그건 그때의 일일뿐이에요.
+                                 가끔 좌우를 살펴보고, 뒤도 돌아보면서 앞으로 걷다 보면 예상보다 많은 변화가 기다리고 있을꺼에요!</p>
         
         </div>
         <div class="col-sm-4 offset-md-1 py-4">
@@ -69,18 +81,28 @@
 		          <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
 		          <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
 		          <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-		          <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+		          <li><a href="list.bo" class="nav-link px-2 text-white">FAQs</a></li>
 		          <li><a href="#" class="nav-link px-2 text-white">About</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	 	 
 		          <li><input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search"></li>     
 		        </ul>
 		        
+		        <c:if test="${!empty login_info }">
+		         <div class="text-end">	
+		         <div> ${login_info.name } [${login_info.id }] </div>
+		         <button type="button" class="btn btn-warning" onclick="go_logout()">Logout</button>		
+		        </div>        
+		        </c:if>
+		        <c:if test="${empty login_info }">
 		        <div class="text-end">		           
 		          <button type="button" class="btn btn-outline-light me-2"><a href='loginpage'>Login</a></button>
-		          <button type="button" class="btn btn-warning">Sign-up</button>
+		          <button type="button" class="btn btn-warning"><a href='member'>Sign-up</a></button>
 		        </div>
+		        </c:if>
+		        
+	   
 		     </div>
        
-	   </div>
+	  </div>
       
       
   
