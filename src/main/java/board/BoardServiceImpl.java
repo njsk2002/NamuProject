@@ -2,10 +2,14 @@ package board;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BoardServiceImpl implements BoardService{
+	
+	@Autowired
+	private BoardDAO dao;
 
 	@Override
 	public int board_insert(BoardVO vo) {
@@ -15,12 +19,12 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public BoardPage board_list(BoardPage page) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return dao.board_list(page);
 	}
 
 	@Override
-	public BoardVO board_detail(int id) {
+	public BoardVO board_detail(int bid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
