@@ -36,11 +36,11 @@
 	</sql>
 	
 	<sql id="writer">
-		writer IN (SELECT id FROM member WHERE name LIKE '%' || #{keyword } || '%')
+		writer IN (SELECT id FROM namu_member WHERE name LIKE '%' || #{keyword } || '%')
 	</sql>
 	
 	<insert id="insert">
-	     INSERT INTO board(title, content, writer, filename, filepath)
+	     INSERT INTO namu_board(title, content, writer, filename, filepath)
 	     VALUES(#{title}, #{content},#{writer},#{filename, jdbcType=VARCHAR}, #{filepath, jdbcType=VARCHAR})	
 	</insert>
 	
