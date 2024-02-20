@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import common.CommonService;
 import lombok.RequiredArgsConstructor;
@@ -74,9 +75,14 @@ public class MemberController {
 	//RequestMapping에 한글이 깨지지않게 utf-8 설정
     @ResponseBody
     @RequestMapping(value="/join", produces="text/html; charset=utf-8")
-    public String join(MemberVO vo, HttpServletRequest request, HttpSession session) {
+    public String join(MemberVO vo, HttpServletRequest request, MultipartFile file, HttpSession session) {
     	String msg ="<script type='text/javascript'>";
     	//화면에서 입력한 정보를 DB에 저장한 후 홈 화면으로 연결
+    	if(!file.isEmpty()) {
+			 vo.setFilename(file.getOriginalFilename());
+			 vo.setFilepath(common.upload("board", file, session));
+		 }
+     	
         if(service.member_insert(vo)) {
         	//메일 전송
         	common.sendEmail(vo.getEmail(), vo.getName(), session);
