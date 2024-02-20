@@ -13,8 +13,8 @@ public class MemberDAO implements MemberService {
 	
 	@Override
 	public boolean member_insert(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return sql.insert("member.mapper.join", vo) == 0 ? false : true ;
 	}
 
 	@Override
@@ -31,8 +31,7 @@ public class MemberDAO implements MemberService {
 
 	@Override
 	public boolean member_id_check(String id) {
-		// TODO Auto-generated method stub
-		return false;
+		return (Integer) sql.selectOne("member.mapper.id_check", id) == 0 ? true : false;
 	}
 
 	@Override

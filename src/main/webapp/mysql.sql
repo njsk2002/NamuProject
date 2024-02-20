@@ -5,14 +5,12 @@ CREATE TABLE namu_member(
     name    VARCHAR(20)    NOT NULL,
     id      VARCHAR(20)    PRIMARY KEY,
     pw      VARCHAR(20)    NOT NULL,
-    age     bigint(5),
     gender  VARCHAR(3) DEFAULT '남' NOT NULL,
-    birth   DATE,
-    filename varchar(100),
-    post    VARCHAR(7),
     addr    VARCHAR(200),
-    email   VARCHAR(50)    NOT NULL,  
-    tel     VARCHAR(20),
+	email   VARCHAR(50)    NOT NULL,     
+    post    VARCHAR(7),
+	filename varchar(100),
+    filepath varchar(300),
     admin   VARCHAR(1)     DEFAULT 'N'
 );
 
