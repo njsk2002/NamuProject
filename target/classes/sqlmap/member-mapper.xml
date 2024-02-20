@@ -12,9 +12,9 @@
  SELECT COUNT(*) FROM namu_member WHERE id=#{id}
 </select>
 
-<insert id="join">
- INSERT INTO namu_member(name,id,pw,gender,email,birth,post,addr,tel) 
- VALUES (#{name},#{id},#{pw},#{gender},#{email},#{birth},#{post},#{addr},#{tel})
+<insert id="join" >
+ INSERT INTO namu_member(id, pw, name, gender, addr, email, post, filename, filepath) 
+ VALUES (#{id},#{pw},#{name},#{gender},#{addr},#{email},#{post},#{filename, jdbcType=VARCHAR }, #{filepath, jdbcType=VARCHAR })
 </insert>
 
 </mapper>

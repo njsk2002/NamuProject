@@ -17,7 +17,7 @@
     
     <!-- Bootstrap core CSS -->
         <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-
+       
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -36,7 +36,7 @@
      <!-- 게시판 -->
    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
    <link href="resources/css_ext/styles.css" rel="stylesheet" /> 
-      
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">    
   </head>
   <body>
     <script src="resources/js/bootstrap.bundle.min.js"></script>
