@@ -1,11 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>board list jsp</title>
+  <!-- 게시판 -->
+   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+   <link href="resources/css_ext/styles.css" rel="stylesheet" />
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+   <link href="resources/css_ext/bootstrap.min.css" rel="stylesheet">
+   <link href="resources/css_ext/kfonts2.css" rel="stylesheet"> 
 
-<%@include file="../includes/header.jsp"%>
+</head>
+<body>
 
-
-
-
+<!-- 게시판 -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="resources/js_ext/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+     <script src="resources/js/bootstrap.min.js"></script>
 
 <div class="container-fluid px-4">
 	<h1 class="mt-4">Tables</h1>
@@ -25,6 +41,14 @@
 		</div>
 	</div>
 </div>
+<div class="clearfix">
+                <ul class="nav nav-tabs ">
+		         <li class="active"><a href="#">메뉴1</a></li>
+		         <li><a href="#">메뉴2</a></li>
+		         <li><a href="#">메뉴3</a></li>
+		         <li><a href="#">메뉴4</a></li>
+               </ul>
+</div>
 <div class="card mb-4">
 	<div class="card-body">
 	
@@ -34,8 +58,9 @@
 			<input type="hidden" name="id" />
 			<div id="list-top">
 				<div>
+				
 					<!-- 검색 -->
-					<ul>
+					<ul class="nav nav-tabs">
 						<li><select name="search" class="w-px80">
 								<option value="all" ${page.search eq 'all' ? 'selected' : '' }>전체</option>
 								<option value="title"
@@ -47,17 +72,14 @@
 						</select></li>
 						<li><input type="text" name="keyword" class="w-px300" /></li>
 						<li><a class="btn-fill" onclick="$('form').submit()">검색</a></li>
-					</ul>
 
-					<ul>
 						<li><select name="pageList" class="w-px80"
 							onchange="$('[name=curPage]').val(1); $('form').submit()">
 								<option value="10" ${page.pageList eq 10 ? 'selected' : '' }>10개씩</option>
 								<option value="20" ${page.pageList eq 20 ? 'selected' : '' }>20개씩</option>
 								<option value="30" ${page.pageList eq 30 ? 'selected' : '' }>30개씩</option>
 						</select></li>
-						<li><select name="viewType" class="w-px100"
-							onchange="$('form').submit()">
+						<li><select name="viewType" class="w-px100" onchange="$('form').submit()">
 								<option value="list"
 									${page.viewType eq 'list' ? 'selected' : '' }>리스트 형태</option>
 								<option value="grid"
@@ -153,10 +175,6 @@
 	<jsp:include page="/WEB-INF/views/includes/page.jsp" />
 </div>
 
-
-<%@include file="../includes/footer.jsp"%>
-
-
 <script type="text/javascript">
 $(function(){
 	$('#data-list ul').css('height', 
@@ -170,3 +188,9 @@ function go_detail(id) {
 	$('form').submit();	
 }
 </script>
+
+</body>
+</html>
+
+
+
