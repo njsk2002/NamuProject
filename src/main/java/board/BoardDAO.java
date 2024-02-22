@@ -14,7 +14,7 @@ public class BoardDAO implements BoardService {
 
 	@Override
 	public int board_insert(BoardVO vo) {
-		
+		        
 		return sql.insert("board.mapper.insert", vo);
 	} 
 

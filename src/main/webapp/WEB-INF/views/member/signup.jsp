@@ -347,7 +347,7 @@
 function isImage(filename){
 	//ab.txt, abc.png, abc.JPG, abcd.hwp, ...
 	var ext = filename.substring(filename.lastIndexOf('.') + 1 ).toLowerCase(); // 마지막 점(.) 다음 위치에서부터 끝까지 뽑고 소문자로 변환
-	var imgs = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
+	var imgs = ['png', 'jpg', 'jpeg', 'gif', 'bmp' , 'jfif'];
 	if ( imgs.indexOf(ext) > -1 ) { return true; }
 	else { return false; }
 }

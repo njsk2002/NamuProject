@@ -59,14 +59,14 @@ public class BoardController {
 	//신규 방명록 저장 처리 요청 ===============================================
 	 
 	 @RequestMapping("/insert.bo")
-	 public String insert(BoardVO vo, MultipartFile file, HttpSession session) {
+	 public String insert(BoardVO vo, MemberVO mvo, MultipartFile file, HttpSession session) {
 		 //화면에서 입력한 정보를 db에 저장한 후 목록 화면으로 연결
 		 if(!file.isEmpty()) {
 			 vo.setFilename(file.getOriginalFilename());
 			 vo.setFilepath(common.upload("board", file, session));
 		 }
 		 vo.setWriter(((MemberVO) session.getAttribute("login_info")).getId());		 
-		// vo.setBid(vo.getWriter());
+		 vo.setMfilepath(mvo.getFilepath());
 		 service.board_insert(vo);
 		 return "redirect:list.bo";
 	 }//insert()

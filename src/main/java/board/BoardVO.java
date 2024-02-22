@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class BoardVO {
 	private int bno,readcnt;
-	private String bid,title, content, writer, filename, filepath;
+	private String bid,title, content, writer, filename, filepath , mfilepath;
 	private Date writedate;
 	
 	public BoardVO() {
@@ -12,7 +12,7 @@ public class BoardVO {
 	}
 
 	public BoardVO(int bno, int readcnt, String bid, String title, String content, String writer, String filename,
-			String filepath, Date writedate) {
+			String filepath, String mfilepath, Date writedate) {
 		super();
 		this.bno = bno;
 		this.readcnt = readcnt;
@@ -22,6 +22,7 @@ public class BoardVO {
 		this.writer = writer;
 		this.filename = filename;
 		this.filepath = filepath;
+		this.mfilepath = mfilepath;
 		this.writedate = writedate;
 	}
 
@@ -89,6 +90,14 @@ public class BoardVO {
 		this.filepath = filepath;
 	}
 
+	public String getMfilepath() {
+		return mfilepath;
+	}
+
+	public void setMfilepath(String mfilepath) {
+		this.mfilepath = mfilepath;
+	}
+
 	public Date getWritedate() {
 		return writedate;
 	}
@@ -96,9 +105,6 @@ public class BoardVO {
 	public void setWritedate(Date writedate) {
 		this.writedate = writedate;
 	}
-	
-	
-	
 
 	
 	
