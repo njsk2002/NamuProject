@@ -12,6 +12,13 @@
    <link href="resources/css_ext/bootstrap.min.css" rel="stylesheet">
    <link href="resources/css_ext/kfonts2.css" rel="stylesheet"> 
 
+<style>
+table { table-layout:fixed; }
+table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.grid li div span{ float: right; }
+</style>
+
+
 </head>
 <body>
 
@@ -41,6 +48,7 @@
 		</div>
 	</div>
 </div>
+<!-- 테스트용 현재는 의미없음 -->
 <div class="clearfix">
                 <ul class="nav nav-tabs ">
 		         <li class="active"><a href="#">메뉴1</a></li>
@@ -61,7 +69,8 @@
 				
 					<!-- 검색 -->
 					<ul class="nav nav-tabs">
-						<li><select name="search" class="w-px80">
+						<li>
+						  <select name="search" class="w-px80">
 								<option value="all" ${page.search eq 'all' ? 'selected' : '' }>전체</option>
 								<option value="title"
 									${page.search eq 'title' ? 'selected' : '' }>제목</option>
@@ -69,7 +78,8 @@
 									${page.search eq 'content' ? 'selected' : '' }>내용</option>
 								<option value="writer"
 									${page.search eq 'writer' ? 'selected' : '' }>작성자</option>
-						</select></li>
+						  </select>
+						</li>
 						<li><input type="text" name="keyword" class="w-px300" /></li>
 						<li><a class="btn-fill" onclick="$('form').submit()">검색</a></li>
 
@@ -86,11 +96,11 @@
 									${page.viewType eq 'grid' ? 'selected' : '' }>바둑판 형태</option>
 						</select></li>
 						<!-- 로그인되어 있으면 글쓰기 가능 -->
-						<core:if test="${!empty login_info }">
+						<c:if test="${!empty login_info }">
 							<li>
 								<!-- 글쓰기 버튼 --> <a class="btn-fill" href="new.bo">글쓰기</a>
 							</li>
-						</core:if>
+						</c:if>
 					</ul>
 				</div>
 			</div>
@@ -126,7 +136,7 @@
 					<tr>
 						<td>
 							<div class="d-flex align-items-center">
-								<img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt=""
+								<img src=" " alt=""
 									style="width: 45px; height: 45px" class="rounded-circle" />
 								<div class="ms-3">
 									<p class="fw-bold mb-1">${vo.writer}</p>
@@ -149,9 +159,10 @@
 		</table>
 	</c:if>
 
-	<c:if test="${page.viewType eq 'grid' }">
+	<%-- <c:if test="${page.viewType eq 'grid' }">
+	    <c:forEach items="${page.list }" var="vo">
 		<ul class="grid">
-			<c:forEach items="${page.list }" var="vo">
+			
 				<li>
 					<div>
 						<a onclick="go_detail(${vo.bid})">${vo.title }</a>
@@ -166,9 +177,53 @@
 					<div>${vo.readcnt}</div>
 					<div>${vo.filename}</div>
 				</li>
-			</c:forEach>
+		
 		</ul>
-	</c:if>
+			</c:forEach>
+	</c:if> --%>
+	
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+       <c:if test="${page.viewType eq 'grid' }">
+         <c:forEach items="${page.list }" var="vo">
+        <div class="col">
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+             <div class="card-body">
+              <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+              <div>
+						<a onclick="go_detail(${vo.bid})">${vo.title }</a>
+					</div>
+					<p class="text-muted mb-0">john.doe@gmail.com</p>
+					<div>${vo.writer }</div>
+					<div>
+						${vo.writedate } <span>${empty vo.filename ? '' : '<img src="img/attach.png" class="file-img" />' }</span>
+					</div>
+					<div>${vo.content}</div>
+					<div>${vo.writedate}</div>
+					<div>${vo.readcnt}</div>
+					<div>${vo.filename}</div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>	
+        </c:forEach> 
+       </c:if>
+    
+ </div> 
+	
+	
+	
+	
+	
+	
+	
 </div>
 
 <div class="btnSet">
@@ -187,6 +242,13 @@ function go_detail(id) {
 	$('form').attr('action', 'detail.bo');
 	$('form').submit();	
 }
+
+function go_img(imgsrc){
+	var subimg = imgsrc.substr(1); 
+	console.log(subimg);
+	
+}
+
 </script>
 
 </body>

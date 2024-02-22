@@ -65,7 +65,8 @@ public class BoardController {
 			 vo.setFilename(file.getOriginalFilename());
 			 vo.setFilepath(common.upload("board", file, session));
 		 }
-		 vo.setWriter(((MemberVO) session.getAttribute("login_info")).getId());
+		 vo.setWriter(((MemberVO) session.getAttribute("login_info")).getId());		 
+		// vo.setBid(vo.getWriter());
 		 service.board_insert(vo);
 		 return "redirect:list.bo";
 	 }//insert()

@@ -33,6 +33,16 @@ CREATE TABLE namu_board(
     ON DELETE CASCADE
 );
 
+-- 셀렉트문 : MYSQL은 ORACLE과 달리 ROWNUM이 없어 하기와 같이 설정을 해야 ROWNUM을 구현할수 있다.
+SELECT n.*, 
+    (SELECT name FROM namu_member WHERE namu_member.id = n.writer) AS name
+FROM (
+    SELECT b.*, (@rownum:=@rownum+1) AS ROWNUM
+    FROM (SELECT * FROM namu_board ORDER BY bno) AS b
+    CROSS JOIN (SELECT @rownum := 0) AS r
+) AS n
+WHERE n.ROWNUM BETWEEN 11 AND 20;
+
 select * from namu_board;
 insert into namu_board(bid,title,content,writer) values('njsk2002','테스트13','테스트입니다.','njsk2002'); 
 insert into namu_board(bid,title,content,writer) values('njsk2002','테스트14','테스트입니다.','njsk2002'); 
