@@ -33,20 +33,14 @@
         }
       }
     </style>
-     <!-- 게시판 -->
-   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-   <link href="resources/css_ext/styles.css" rel="stylesheet" /> 
-   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+   
 
       
   </head>
   <body>
     <script src="resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  
-     <!-- 게시판 -->
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <script src="resources/js_ext/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+     
    <!-- <script src="resources/js_ext/datatables-simple-demo.js"></script>   -->
 <header>
 
