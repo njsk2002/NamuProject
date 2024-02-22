@@ -50,8 +50,8 @@
 	</sql>
 	
 	<insert id="insert">
-	     INSERT INTO namu_board(bid, title, content, writer, filename, filepath)
-	     VALUES(#{writer}, #{title}, #{content},#{writer},#{filename, jdbcType=VARCHAR}, #{filepath, jdbcType=VARCHAR})	
+	     INSERT INTO namu_board(bid, title, content, writer, filename, filepath, mfilepath)
+	     VALUES(#{writer}, #{title}, #{content},#{writer},#{filename, jdbcType=VARCHAR}, #{filepath, jdbcType=VARCHAR},(SELECT filepath From namu_member where id = #{writer}))	
 	</insert>
 	
 	<update id="read">

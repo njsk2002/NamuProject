@@ -122,9 +122,10 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 		<table class="table align-middle mb-0 bg-white">
 			<thead class="bg-light">
 				<tr>
-					<th>작성자</th>
+			
 					<th>제목</th>
 					<th>내용</th>
+					<th>작성자</th>
 					<th>작성날짜</th>
 					<th>조회수</th>
 					<th>첨부파일</th>
@@ -134,24 +135,26 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
 				<c:forEach var="vo" items="${page.list}">
 					<tr>
+					    <td>
+						    <p class="fw-normal mb-1">${vo.title}</p>
+					    </td>
+					    <td>${vo.content}</td>
+					
+						
 						<td>
 							<div class="d-flex align-items-center">
-								<img src=" " alt=""
+								<img src="${vo.mfilepath }" alt=""
 									style="width: 45px; height: 45px" class="rounded-circle" />
 								<div class="ms-3">
 									<p class="fw-bold mb-1">${vo.writer}</p>
-									<p class="text-muted mb-0">john.doe@gmail.com</p>
 								</div>
 							</div>
 						</td>
-						<td>
-							<p class="fw-normal mb-1">${vo.title}</p>
-						</td>
-
-						<td>${vo.content}</td>
 						<td>${vo.writedate}</td>
-						<td>${vo.readcnt}</td>
+						<td>${vo.readcnt }</td>
 						<td>${vo.filename}</td>
+
+						
 					</tr>
 				</c:forEach>
 
@@ -187,22 +190,42 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
          <c:forEach items="${page.list }" var="vo">
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
+           <!--  <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
+            <img src="${vo.filepath }" style="width: 300px; height: 150px">
              <div class="card-body">
-              <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+              <img src="${vo.mfilepath }" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
               <div>
 						<a onclick="go_detail(${vo.bid})">${vo.title }</a>
 					</div>
 					<p class="text-muted mb-0">john.doe@gmail.com</p>
 					<div>${vo.writer }</div>
-					<div>
+					<%-- <div>
 						${vo.writedate } <span>${empty vo.filename ? '' : '<img src="img/attach.png" class="file-img" />' }</span>
-					</div>
+					</div> --%>
 					<div>${vo.content}</div>
 					<div>${vo.writedate}</div>
 					<div>${vo.readcnt}</div>
 					<div>${vo.filename}</div>
+					
+					
+			   <button type="button" class="btn btn-default">기본 버튼 모양 </button>
+
+              <button type="button" class="btn btn-primary">중요한 버튼</button>
+       
+               <button type="button" class="btn btn-success">긍정적 의미의 버튼</button>
+       
+               <button type="button" class="btn btn-info">정보제공 버튼</button>
+					<div>
+           <div> <label class="label label-primary">제목</label> <h2>${vo.title}</h2> </div>
+          <p>${vo.content}</p>
+          <span>${empty vo.filename ? '' : '<img src="img/attach.png" class="file-img" />' }</span>
+          <a href="#" class="btn btn-primary">
+            자세히 보기
+          </a>
+        </div>
+					
+					
+					
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
@@ -243,11 +266,11 @@ function go_detail(id) {
 	$('form').submit();	
 }
 
-function go_img(imgsrc){
+/* function go_img(imgsrc){
 	var subimg = imgsrc.substr(1); 
 	console.log(subimg);
 	
-}
+} */
 
 </script>
 
