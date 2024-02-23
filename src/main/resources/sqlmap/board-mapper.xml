@@ -55,22 +55,22 @@
 	</insert>
 	
 	<update id="read">
-	  UPDATE namu_board SET readcnt = readcnt + 1 WHERE id= #{id}
+	  UPDATE namu_board SET readcnt = readcnt + 1 WHERE bno= #{bno}
 	</update>
 	
 	<select id="detail" resultType="board.BoardVO">
-	 SELECT b.*, (SELECT name FROM member m WHERE m.id= b.writer) name
+	 SELECT b.*, (SELECT name FROM namu_member m WHERE m.id= b.writer) name
 	 FROM namu_board b
-	 WHERE id=#{id}	 
+	 WHERE bno=#{bno}	 
 	</select>
 	
 	<update id="update">
 	  UPDATE namu_board SET title=#{title}, content=#{content}, filename=#{filename, jdbcType=VARCHAR}, filepath=#{filepath, jdbcType=VARCHAR}
-	  WHERE id = #{id}	  
+	  WHERE bno = #{bno}	  
 	</update>
 	
 	<delete id="delete">
-	  DELETE FROM board WHERE id=#{id}
+	  DELETE FROM board WHERE bno=#{bno}
 	</delete>
 	
 	<insert id="comment_insert">

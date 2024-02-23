@@ -2,9 +2,12 @@ package board;
 
 import java.sql.Date;
 
+import lombok.Data;
+
+@Data
 public class BoardVO {
 	private int bno,readcnt;
-	private String bid,title, content, writer, filename, filepath , mfilepath;
+	private String bid,title, content, writer, filename, filepath , mfilepath , detail;
 	private Date writedate;
 	
 	public BoardVO() {
@@ -12,7 +15,7 @@ public class BoardVO {
 	}
 
 	public BoardVO(int bno, int readcnt, String bid, String title, String content, String writer, String filename,
-			String filepath, String mfilepath, Date writedate) {
+			String filepath, String mfilepath, String detail, Date writedate) {
 		super();
 		this.bno = bno;
 		this.readcnt = readcnt;
@@ -23,86 +26,7 @@ public class BoardVO {
 		this.filename = filename;
 		this.filepath = filepath;
 		this.mfilepath = mfilepath;
-		this.writedate = writedate;
-	}
-
-	public int getBno() {
-		return bno;
-	}
-
-	public void setBno(int bno) {
-		this.bno = bno;
-	}
-
-	public int getReadcnt() {
-		return readcnt;
-	}
-
-	public void setReadcnt(int readcnt) {
-		this.readcnt = readcnt;
-	}
-
-	public String getBid() {
-		return bid;
-	}
-
-	public void setBid(String bid) {
-		this.bid = bid;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-
-	public String getFilename() {
-		return filename;
-	}
-
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
-
-	public String getFilepath() {
-		return filepath;
-	}
-
-	public void setFilepath(String filepath) {
-		this.filepath = filepath;
-	}
-
-	public String getMfilepath() {
-		return mfilepath;
-	}
-
-	public void setMfilepath(String mfilepath) {
-		this.mfilepath = mfilepath;
-	}
-
-	public Date getWritedate() {
-		return writedate;
-	}
-
-	public void setWritedate(Date writedate) {
+		this.detail = detail;
 		this.writedate = writedate;
 	}
 

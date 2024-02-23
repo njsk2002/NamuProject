@@ -35,7 +35,7 @@ public class BoardController {
 	//방명록 목록 화면 요청================================================================
 	@RequestMapping("/list.bo")
 	public String list(HttpSession session, Model model, @RequestParam(defaultValue = "1") int curPage, String search, String keyword
-			,@RequestParam(defaultValue = "10") int pageList, @RequestParam(defaultValue= "list" ) String viewType) {
+			,@RequestParam(defaultValue = "10") int pageList, @RequestParam(defaultValue= "list" ) String viewType, @RequestParam(defaultValue = "n") String detail) {
 		//DB에서 방명록 정보를 조회해와 목록 화면에 출력
 		session.setAttribute("category", "bo");
 		page.setCurPage(curPage);
@@ -45,7 +45,7 @@ public class BoardController {
 		page.setViewType(viewType);
 		
 		model.addAttribute("page", service.board_list(page));
-		
+		model.addAttribute("detail", detail);
 		return "board/list";
 	} //list()
 	
@@ -71,15 +71,25 @@ public class BoardController {
 		 return "redirect:list.bo";
 	 }//insert()
 	 
+	 @RequestMapping("/detaill.bo")
+	 public String test() {
+		 return "board/detail";
+	 }
+	 
 	 //방명록 상세 화면 요청 ====================================================================
 	 @RequestMapping("/detail.bo")
-	 public String detail(int id, Model model) {
+	 public String detail(int bno, String detail, Model model) {
 		 //선택한 방명록 글을 db에서 조회해 상세 화면에 출력
-		 System.out.println("id=:" + id);
-		 service.board_read(id);
-		 model.addAttribute("vo", service.board_detail(id));
+		 System.out.println("BNO=:" + bno);
+		 System.out.println("DETAIL=:" + detail);
+		 service.board_read(bno); // 조회수증가
+		 
+		 
+		 
+		 model.addAttribute("vo", service.board_detail(bno));
 		 model.addAttribute("page", page);
 		 model.addAttribute("crlf","\r\n");
+		// model.addAttribute("detail", detail);
 		 
 		 return "board/detail";
 	 } // detail()
