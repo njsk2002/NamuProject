@@ -41,7 +41,8 @@ insert into namu_board(bid,title,content,writer) values('njsk2002','테스트15'
 insert into namu_board(bid,title,content,writer) values('njsk2002','테스트16','테스트입니다.','njsk2002'); 
 insert into namu_board(bid,title,content,writer) values('njsk2002','테스트17','테스트입니다.','njsk2002'); 
 insert into namu_board(bid,title,content,writer) values('njsk2002','테스트18','테스트입니다.','njsk2002');  
-
+INSERT INTO namu_board(bid, title, content, writer, filename, filepath, mfilepath)
+VALUES('njsk2003','테스트18','테스트입니다.','njsk2003',"다운로드.png", "upload/board/2024/02/22/1b1fb283-063c-41aa-a2ae-ba22fd28082d_다운로드.png",(SELECT filepath From namu_member where id = "njsk2003"));
 
 ==게시판 댓글========================================================
 DROP table namu_bcomment;
@@ -49,10 +50,12 @@ CREATE TABLE namu_bcomment (
     cno	INT AUTO_INCREMENT PRIMARY KEY,
 	bno INT  NOT NULL,  /* 원글의 아이디 */
 	writer VARCHAR(20) NOT NULL, /* 댓글 작성자 아이디 */
-	content VARCHAR(4000) NOT NULL,
+	comment VARCHAR(4000) NOT NULL,
     writedate DATETIME DEFAULT current_timestamp,
     FOREIGN KEY (bno) REFERENCES namu_board(bno)
     ON DELETE CASCADE,
 	FOREIGN KEY (writer) REFERENCES namu_member(id)
     ON DELETE CASCADE
 );
+
+select * from namu_bcomment;

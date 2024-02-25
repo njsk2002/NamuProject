@@ -53,9 +53,10 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
+                    <label class="form-label" for="form3Example1c">제목</label>
                       <input type="text" id="title" name="title" class="form-control chk" />
                       <div class='valid'>100자 이내로 작성해주세요!</div>
-                      <label class="form-label" for="form3Example1c">제목</label>
+                      
                     </div>
                   </div>
 
@@ -63,27 +64,29 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
+                    <label class="form-label" for="form3Example1c">게시글</label>   
                       <textarea id="content" name="content" style="height: 100px;" class="form-control chk" ></textarea>
                        <div class='valid'>500자 이내로 작성해주세요!</div>
-                      <label class="form-label" for="form3Example1c">게시글</label>                  
+                                     
                     </div>
                   </div>
  
                     
                 <!--  이미지 선택 -->  
-                <div class="d-flex flex-row align-items-center mb-4">
+               <div class="d-flex flex-row align-items-center mb-4">
 				<label class="btn btn-primary">
 					<input type="file" name="file" id="attach-file" >			
                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
                  <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>
                  </svg>
-				</label>				
+								
 				<span id="file-name"></span>
 				<span id="preview"></span>
 				<span id="delete-file" style="color:red; margin-left:20px;">
 					<i class="fas fa-times font-img" ></i>
 				</span>
-			   </div>
+				</label>
+			  </div>
 
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
@@ -160,7 +163,7 @@ $('#attach-file').on('change', function() {
 	var attach = this.files[0];
 	if( attach ) {
 		if( isImage(attach.name) ) {
-			var img = "<img id='preview-img' class='file-img' src='' style='border-radius:50%'/>";
+			var img = "<img id='preview-img' class='file-img' src='' style='width: 70px; height: 70px; border-radius:50%;' class='rounded-circle' />";
 			$('#preview').html(img);
 
 			var reader = new FileReader();

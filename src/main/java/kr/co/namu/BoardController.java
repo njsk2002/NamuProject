@@ -98,18 +98,18 @@ public class BoardController {
 	 
 	 @ResponseBody
 	 @RequestMapping("/download.bo")
-	 public void download(int id, HttpSession session, HttpServletResponse response) {
+	 public void download(int bno, HttpSession session, HttpServletResponse response) {
 		 //해당 글의 첨부 파일 저옵를 죄해해서 다운로드 한다.
-		 BoardVO vo = service.board_detail(id);
+		 BoardVO vo = service.board_detail(bno);
 		 common.download(vo.getFilename(), vo.getFilepath(), session, response);
 		 
 	 }//download()
 	 
 	 //방명록 수정 화면 요청 ===============================================================
 	 @RequestMapping("/modify.bo")
-	 public String modify(int id, Model model) {
+	 public String modify(int bno, Model model) {
 		 //선택한 방명록 글의 정보를 db에서 조회해 수정 화면에 출력
-		 model.addAttribute("vo", service.board_detail(id));
+		 model.addAttribute("vo", service.board_detail(bno));
 		 return "board/modify";
 		
 	 }//modify()
@@ -152,12 +152,12 @@ public class BoardController {
 	 
 	 //방명록 삭제 ======================================================================
 	  @RequestMapping("/delete.bo")
-	  public String delete(int id, Model model) {
+	  public String delete(int bno, Model model) {
 		  //선택한 글을 bB에서 삭제한 후 목록 화면으로 연결
-		  service.board_delete(id);
+		  service.board_delete(bno);
 		  
 		  model.addAttribute("url","list.bo");
-		  model.addAttribute("id", id);
+		  model.addAttribute("id", bno);
 		  model.addAttribute("page", page);
 		  
 		  return "board/redirect";
@@ -174,11 +174,11 @@ public class BoardController {
 	  } //comment_insert()
 	  
 	  //댓글 목록 조회 요청 =================================================================
-	  @RequestMapping("/board/comment/{pid}")
-	  public String comment_list(@PathVariable int pid, Model model) {
+	  @RequestMapping("/board/comment/{bno}")
+	  public String comment_list(@PathVariable int bno, Model model) {
 		  //db에서  댓글 목록을 조회해서 댓글 목록 화면에 출력
-		  model.addAttribute("list", service.board_comment_list(pid));
-		  //System.out.println("PID: " + pid);
+		  model.addAttribute("list", service.board_comment_list(bno));
+		  System.out.println("bno: " + bno);
 		  return "board/comment/list";
 	  } // comment_list()
       
@@ -192,9 +192,9 @@ public class BoardController {
 	  //댓글 삭제 처리 요청
 	  //ResponseBody : 화면(jsp)으로 연결이 아니라 호출한쪽으로 돌아갈때 사용하는 어노테이션
 	  @ResponseBody
-	  @RequestMapping("/board/comment/delete/{id}")
-	  public void comment_delete(@PathVariable int id) {
-		  service.board_comment_delete(id);
+	  @RequestMapping("/board/comment/delete/{cno}")
+	  public void comment_delete(@PathVariable int cno) {
+		  service.board_comment_delete(cno);
 	  }//comment_delete()
 	  
 	  

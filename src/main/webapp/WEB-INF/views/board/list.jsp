@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,26 +175,62 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 					
 				 <tr id="detail${vo.bno }" class="detail" style="display: none;">   
                     <td colspan = "6" >
-                    <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3 content-block">
-						<div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3 content-block">
-							<div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden content-block" >
-							      <div class="my-3 py-3">
-							        <h2 class="display-5">${vo.title}</h2>
-							        <p class="lead">${vo.writer}
-							        <img src="${vo.mfilepath }" alt="작성자" style="width: 45px; height: 45px" class="rounded-circle" /></p>
-							      </div>
-							      <div class="bg-light shadow-sm mx-auto" style="width: 85%; height: 300px; border-radius: 21px 21px 0 0;">
-							         <img src = "${vo.filepath }" style="width: 100%; height: 300px;">
-							      </div>
-							      
-							 </div>
-							</div>  
-							 <div class="d-md-flex flex-md-equal w-100  content-block">    
-							     <div class="bg-light shadow-sm mx-auto content-block" style="width: 100%; height: 300px; border-radius: 21px 21px 0 0;">     
-							        <p style="width: 100%; height: 300px;" >${vo.content } </p>
-							     </div>
-							</div>
-				   </div>
+                    <div class="album py-5 bg-light">
+  
+  <!-- class="album": Bootstrap의 앨범 클래스입니다. 이 클래스는 앨범 컴포넌트의 스타일을 정의합니다.
+  py-5: 상단(Padding Top)과 하단(Padding Bottom)에 5단위의 여백을 추가합니다.
+  bg-light: 배경색을 밝은 색으로 지정합니다. 이 클래스는 Bootstrap에서 제공하는 배경색 클래스 중 하나입니다. -->
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+      <!-- "row" 클래스: Bootstrap 그리드 시스템에서 행을 정의합니다.
+      "row-cols-1" 클래스: 작은 화면 크기에서는 한 열(column)로 배치합니다.
+      "row-cols-sm-2" 클래스: 중간 크기 화면에서는 두 개의 열로 배치합니다.
+      "row-cols-md-2" 클래스: 중간 크기 이상의 화면에서도 두 개의 열로 배치합니다.
+      "g-3" 클래스: 열 간의 간격을 3단위로 설정합니다. 이것은 열 사이의 간격을 조절하는 데 사용됩니다. -->
+      
+      
+        <div class="col">
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+              <image x="0" y="0" width="100%" height="100%" xlink:href="img/IU.png" />
+            </svg>
+            
+            <div class="card-body">
+                    <div class="my-3 py-3">
+				        <h2 class="display-5">${vo.title}</h2>
+				        <p class="lead">${vo.writer}
+				        <img src="${vo.mfilepath }" alt="작성자" style="width: 45px; height: 45px" class="rounded-circle" /></p>
+				        <c:if test="${!empty vo.filename }"><p>파일명
+				          
+				          <a href="download.bo?id=${vo.bno }"><img src="img/paperclip.svg"></i>${vo.filename }</a></p>
+			            </c:if>
+				        
+				    </div> 
+				 <div class=" content-block">         
+                 <p class="card-text ">${vo.content}</p>
+                 </div>
+              <div class="d-flex justify-content-between align-items-center">
+              
+              <!-- d-flex: Flexbox 컨테이너를 나타냅니다. 이 클래스는 해당 요소를 Flexbox로 설정하여 자식 요소들을 유연하게 배치할 수 있도록 합니다.
+              justify-content-between: 자식 요소들을 수평으로 정렬할 때 요소들 사이에 공간을 균등하게 분배합니다. 첫 번째 요소는 시작 부분에, 마지막 요소는 끝 부분에 정렬됩니다.
+              align-items-center: 자식 요소들을 수직으로 정렬할 때 가운데 정렬합니다. 이 클래스는 자식 요소들의 높이가 서로 다를 때 사용됩니다.
+              즉, 위의 코드는 Flexbox를 사용하여 요소들을 수평으로 정렬하고, 첫 번째 요소는 시작 부분에, 두 번째 요소는 끝 부분에 정렬하며, 자식 요소들의 높이를 가운데 정렬합니다. 
+              이는 부트스트랩을 사용하여 반응형 디자인을 구현하는 데 유용한 기능 중 하나입니다. -->
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+   </div>
+ </div>
+ </div>
+
 				  </td>
                  </tr>	
                								 
@@ -306,8 +343,8 @@ $(function(){
 			 * $('.grid li').outerHeight(true) - 20);
 })
 
-function go_detail(id,detail) {
-	$('[name=bno]').val(id);
+function go_detail(bno,detail) {
+	$('[name=bno]').val(bno);
 	$('[name=detail]').val(detail);
 	$('form').attr('action', 'detail.bo');
 	$('form').submit();	
