@@ -195,12 +195,14 @@ public class CommonService {
 			// /upload/.../asdfadsfsa_abc.txt ▶ 업로드한 파일의 경로를 반환
 			// ① folder.replace(resources, "")
 			// ② folder.substring(resources.length()) + "/" + uuid;
-			return folder.substring(resources.length()) + "/" + uuid;
+
+			return folder.substring(resources.length()+1) + "/" + uuid;
+
 		}//upload
 		
 	//첨부 파일 다운로드 처리 ///////////////////////////////////////////////////////
 		public File download(String filename, String Filepath, HttpSession session, HttpServletResponse response) {
-			File file = new File(session.getServletContext().getRealPath("resources") + Filepath);
+			File file = new File(session.getServletContext().getRealPath("resources") + "/" + Filepath);
 			//filepath에 resources/ << 슬래쉬부터의 경로가 지정되어 있다.
 			String mime = session.getServletContext().getMimeType(filename);
 		

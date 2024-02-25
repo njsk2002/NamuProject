@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board.mapper">
+
+	<select id="total" resultType="integer">
+		SELECT COUNT(*) FROM namu_board <include refid="search"/>
+	</select>
+	
+	<select id="list" resultType="board.BoardVO">
+	 
+	 <!-- 오라클 코드 : 오라클은 ROWNUM이 있으나, MY SQL은 ROWNUM이 없음에 따라, 하기와 같이 구현 필수
+	   SELECT n.*, (SELECT name FROM member WHERE member.id=writer) name
+		FROM (SELECT b.*, ROWNUM no
+	   	 	  FROM (SELECT * FROM board <include refid="search"/> ORDER by id) b
+			  ORDER BY no DESC) n
+		WHERE no BETWEEN #{beginList } AND #{endList } -->
+	
+	  <!-- 오라클 코드 : 오라클은 ROWNUM이 있으나, MY SQL은 ROWNUM이 없음에 따라, 하기와 같이 구현 필수 -->
+	   SELECT n.*, 
+              (SELECT name FROM namu_member WHERE namu_member.id = n.writer) AS name
+             FROM (SELECT b.*, (@rownum:=@rownum+1) AS ROWNUM
+             FROM (SELECT * FROM namu_board <include refid="search"/>  ORDER BY bno) AS b
+             CROSS JOIN (SELECT @rownum := 0) AS r
+              ) AS n
+             WHERE n.ROWNUM BETWEEN #{beginList } AND #{endList }
+	
+	
+	
+	
+					
+	</select>
+	
+	<sql id="search">
+		<if test="search == 'title' or search == 'content'" >
+			<!--오라클: WHERE ${search } LIKE '%' || #{keyword } || '%' -->
+			WHERE ${search} LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="search == 'writer'" >
+			WHERE <include refid="writer" />
+		</if>
+		<if test="search == 'all'">
+			WHERE TITLE LIKE CONCAT('%', #{keyword}, '%')
+			OR content LIKE CONCAT('%', #{keyword}, '%')
+			OR <include refid="writer" />
+		</if>
+	</sql>
+	
+	<sql id="writer">
+		writer IN (SELECT id FROM namu_member WHERE name LIKE CONCAT('%', #{keyword}, '%'))
+	</sql>
+	
+	<insert id="insert">
+	     INSERT INTO namu_board(bid, title, content, writer, filename, filepath, mfilepath)
+	     VALUES(#{writer}, #{title}, #{content},#{writer},#{filename, jdbcType=VARCHAR}, #{filepath, jdbcType=VARCHAR},(SELECT filepath From namu_member where id = #{writer}))	
+	</insert>
+	
+	<update id="read">
+	  UPDATE namu_board SET readcnt = readcnt + 1 WHERE id= #{id}
+	</update>
+	
+	<select id="detail" resultType="board.BoardVO">
+	 SELECT b.*, (SELECT name FROM member m WHERE m.id= b.writer) name
+	 FROM namu_board b
+	 WHERE id=#{id}	 
+	</select>
+	
+	<update id="update">
+	  UPDATE namu_board SET title=#{title}, content=#{content}, filename=#{filename, jdbcType=VARCHAR}, filepath=#{filepath, jdbcType=VARCHAR}
+	  WHERE id = #{id}	  
+	</update>
+	
+	<delete id="delete">
+	  DELETE FROM board WHERE id=#{id}
+	</delete>
+	
+	<insert id="comment_insert">
+	  INSERT INTO board_comment(content, pid, writer) VALUES (#{content}, #{pid}, #{writer})	 
+	</insert>
+	
+		<select id="comment_list" resultType="board.BoardCommentVO">
+		SELECT c.*, (SELECT name FROM member m WHERE m.id=writer) name,
+				TO_CHAR(writedate, 'yyyy-mm-dd hh24:mi:ss') writedate
+		FROM board_comment c
+		WHERE pid=#{pid}
+		ORDER BY id DESC
+	</select>
+
+	
+	<update id="comment_update">
+	  UPDATE board_comment SET content=#{content} WHERE id=#{id}
+	</update>
+	
+	<delete id="comment_delete">
+	 DELETE FROM board_comment WHERE id=#{id}
+	</delete>
+	
+</mapper>
