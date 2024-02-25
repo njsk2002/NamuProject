@@ -39,38 +39,39 @@ public class BoardDAO implements BoardService {
 
 	@Override
 	public int board_update(BoardVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return sql.update("board.mapper.update", vo);
 	}
 
 	@Override
-	public int board_delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int board_delete(int bno) {
+
+		return sql.delete("board.mapper.delete", bno);
 	}
 
 	@Override
 	public int board_comment_insert(BoardCommentVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return sql.insert("board.mapper.comment_insert", vo);
 	}
 
 	@Override
-	public List<BoardCommentVO> board_comment_list(int pid) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BoardCommentVO> board_comment_list(int bno) {
+	
+		return sql.selectList("board.mapper.comment_list", bno);
 	}
+
 
 	@Override
 	public int board_comment_update(BoardCommentVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+		return sql.update("board.mapper.comment_update", vo);
 	}
 
 	@Override
-	public int board_comment_delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int board_comment_delete(int cno) {
+		
+		return sql.delete("board.mapper.comment_delete", cno);
 	}
 
 }

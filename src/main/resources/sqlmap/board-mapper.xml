@@ -70,28 +70,35 @@
 	</update>
 	
 	<delete id="delete">
-	  DELETE FROM board WHERE bno=#{bno}
+	  DELETE FROM namu_board WHERE bno=#{bno}
 	</delete>
 	
 	<insert id="comment_insert">
-	  INSERT INTO board_comment(content, pid, writer) VALUES (#{content}, #{pid}, #{writer})	 
+	  INSERT INTO namu_bcomment(comment, bno, writer) VALUES (#{comment}, #{bno}, #{writer})	 
 	</insert>
 	
-		<select id="comment_list" resultType="board.BoardCommentVO">
-		SELECT c.*, (SELECT name FROM member m WHERE m.id=writer) name,
+	<select id="comment_list" resultType="board.BoardCommentVO">
+        <!-- oracle SELECT c.*, (SELECT name FROM namu_member m WHERE m.id=writer) name,
 				TO_CHAR(writedate, 'yyyy-mm-dd hh24:mi:ss') writedate
-		FROM board_comment c
-		WHERE pid=#{pid}
-		ORDER BY id DESC
+		FROM namu_bcomment c
+		WHERE bno=#{bno}
+		ORDER BY cno DESC -->
+		
+			SELECT c.*, 
+	        (SELECT name FROM namu_member m WHERE m.id=c.writer) AS name,
+	        DATE_FORMAT(c.writedate, '%Y-%m-%d %H:%i:%s') AS writedate
+			FROM namu_bcomment c
+			WHERE bno=#{bno}
+			ORDER BY c.cno DESC
 	</select>
 
 	
 	<update id="comment_update">
-	  UPDATE board_comment SET content=#{content} WHERE id=#{id}
+	  UPDATE namu_bcomment SET comment=#{comment} WHERE cno=#{cno}
 	</update>
 	
 	<delete id="comment_delete">
-	 DELETE FROM board_comment WHERE id=#{id}
+	 DELETE FROM namu_bcomment WHERE cno=#{cno}
 	</delete>
 	
 </mapper>
