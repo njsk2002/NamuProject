@@ -16,6 +16,19 @@
 table { table-layout:fixed; }
 table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .grid li div span{ float: right; }
+
+
+ .content-block {
+		  display: block;
+		  word-break:break-all;
+		  position: relative;
+		 
+		  width: fit-content;
+		  padding: 15px;
+		  max-width: 400px;
+		  margin: 0 auto 2px 0;
+		  border-radius: 16px;
+        }
 </style>
 
 
@@ -26,9 +39,9 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="resources/js_ext/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-     <script src="resources/js/bootstrap.min.js"></script>
+    <!-- 주석처리하면 header tab 메뉴동작함.  <script src="resources/js/bootstrap.min.js"></script> -->  
 
 <div class="container-fluid px-4">
 	<h1 class="mt-4">Tables</h1>
@@ -63,7 +76,8 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 	
 		<form id="list" method="post" action="">
 			<input type="hidden" name="curPage" value="1" /> 
-			<input type="hidden" name="id" />
+			<input type="hidden" name="bno" />
+			<input type="hidden" name="detail">
 			<div id="list-top">
 				<div>
 				
@@ -136,14 +150,16 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 				<c:forEach var="vo" items="${page.list}">
 					<tr>
 					    <td>
-						    <p class="fw-normal mb-1">${vo.title}</p>
+						    <p class="fw-normal mb-1"><a onclick="go_detail(${vo.bno}, 'y')">${vo.title}</a></p>
+						    <p><input type="button" class="btn btn-success" id="detailbtn${vo.bno}" onclick="move_detail('${vo.bno}')" value="자세히">
+						    <input type="button" class="btn btn-primary" id="closebtn${vo.bno}" style="display: none;" onclick="move_close('${vo.bno}')" value="닫기"></p>
 					    </td>
 					    <td>${vo.content}</td>
 					
 						
 						<td>
 							<div class="d-flex align-items-center">
-								<img src="${vo.mfilepath }" alt=""
+								<img src="${vo.mfilepath }" alt=" "
 									style="width: 45px; height: 45px" class="rounded-circle" />
 								<div class="ms-3">
 									<p class="fw-bold mb-1">${vo.writer}</p>
@@ -153,9 +169,34 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 						<td>${vo.writedate}</td>
 						<td>${vo.readcnt }</td>
 						<td>${vo.filename}</td>
-
-						
+                    						
 					</tr>
+					
+				 <tr id="detail${vo.bno }" class="detail" style="display: none;">   
+                    <td colspan = "6" >
+                    <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3 content-block">
+						<div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3 content-block">
+							<div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden content-block" >
+							      <div class="my-3 py-3">
+							        <h2 class="display-5">${vo.title}</h2>
+							        <p class="lead">${vo.writer}
+							        <img src="${vo.mfilepath }" alt="작성자" style="width: 45px; height: 45px" class="rounded-circle" /></p>
+							      </div>
+							      <div class="bg-light shadow-sm mx-auto" style="width: 85%; height: 300px; border-radius: 21px 21px 0 0;">
+							         <img src = "${vo.filepath }" style="width: 100%; height: 300px;">
+							      </div>
+							      
+							 </div>
+							</div>  
+							 <div class="d-md-flex flex-md-equal w-100  content-block">    
+							     <div class="bg-light shadow-sm mx-auto content-block" style="width: 100%; height: 300px; border-radius: 21px 21px 0 0;">     
+							        <p style="width: 100%; height: 300px;" >${vo.content } </p>
+							     </div>
+							</div>
+				   </div>
+				  </td>
+                 </tr>	
+               								 
 				</c:forEach>
 
 			</tbody>
@@ -193,9 +234,14 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
            <!--  <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
             <img src="${vo.filepath }" style="width: 300px; height: 150px">
              <div class="card-body">
+
               <img src="${vo.mfilepath }" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+
+              <img src="${vo.filepath}" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+
               <div>
-						<a onclick="go_detail(${vo.bid})">${vo.title }</a>
+					<a onclick="go_detail(${vo.bid})">${vo.title }</a>
+					<button type="button" class="btn btn-success" id="detail">자세히</button>
 					</div>
 					<p class="text-muted mb-0">john.doe@gmail.com</p>
 					<div>${vo.writer }</div>
@@ -260,17 +306,81 @@ $(function(){
 			 * $('.grid li').outerHeight(true) - 20);
 })
 
-function go_detail(id) {
-	$('[name=id]').val(id);
+function go_detail(id,detail) {
+	$('[name=bno]').val(id);
+	$('[name=detail]').val(detail);
 	$('form').attr('action', 'detail.bo');
 	$('form').submit();	
 }
+
+
+function move_detail(bno){
+	 
+	var idval = bno;
+	var idadd = "detail" + idval;
+	var closebtn = "closebtn" + idval;
+	var detailbtn = "detailbtn" + idval;
+	console.log(idadd);
+   //document.querySelector('.detail').setAttribute("id", idadd);
+    document.getElementById(idadd).style.display = 'block';
+    document.getElementById(closebtn).style.display = 'block';
+    document.getElementById(detailbtn).style.display = 'none';
+   	
+}
+
+function move_close(bno){
+	 
+	var idval = bno;
+	var idadd = "detail" + idval;
+	var closebtn = "closebtn" + idval;
+	var detailbtn = "detailbtn" + idval;
+	console.log(idadd);
+   //document.querySelector('.detail').setAttribute("id", idadd);
+    document.getElementById(idadd).style.display = 'none';
+    document.getElementById(closebtn).style.display = 'none';
+    document.getElementById(detailbtn).style.display = 'block';
+   
+
+	
+}
+
 
 /* function go_img(imgsrc){
 	var subimg = imgsrc.substr(1); 
 	console.log(subimg);
 	
 } */
+
+// 버튼눌를때 bno의 값을 던진면  함수는  bno+id를 해서 div id를 설정한다.
+/* $(function(){
+	
+//	$("#detailview").hide();
+//	$("#close").hide();
+//     var test = '<c:out value="${detail}"/>';
+    var test = document.getElementById('content');
+    console.log(test)
+	$("#detail+'${vo.bno}'").click(function() {
+	    $("#detailview+'${vo.bno}'").show();
+	    $("#detail+'${vo.bno}'").hide();
+	    $("#close+'${vo.bno}'").show();
+	    // goodsBtn을 클릭하면 goodsDiv를 보여줘라
+	 
+	});
+	 
+	$(".closebtn+'${vo.bno}'").click(function() {
+		 $("#detail+'${vo.bno}'").show();
+		 $("#detailview+'${vo.bno}'").hide();
+		 $("#close+'${vo.bno}'").hide();
+	 
+	});
+	
+	
+	
+	
+})
+ */
+
+
 
 </script>
 
