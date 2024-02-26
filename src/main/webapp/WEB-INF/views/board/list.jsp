@@ -13,7 +13,26 @@
    <link href="resources/css_ext/bootstrap.min.css" rel="stylesheet">
    <link href="resources/css_ext/kfonts2.css" rel="stylesheet"> 
 
-<style>
+
+
+
+ <style>
+ /* DETAIL_INLIST.JSP 반영    */ 
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+/* LIST.JSP 반영    */ 
 table { table-layout:fixed; }
 table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .grid li div span{ float: right; }
@@ -150,15 +169,15 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
 				<c:forEach var="vo" items="${page.list}">
 					<tr>
-					    <td>
+					    <td class="col-md-2">
 						    <p class="fw-normal mb-1"><a onclick="go_detail(${vo.bno}, 'y')">${vo.title}</a></p>
-						    <p><input type="button" class="btn btn-success" id="detailbtn${vo.bno}" onclick="move_detail('${vo.bno}')" value="자세히">
-						    <input type="button" class="btn btn-primary" id="closebtn${vo.bno}" style="display: none;" onclick="move_close('${vo.bno}')" value="닫기"></p>
+						    <%-- <p><input type="button" class="btn btn-success" id="detailbtn${vo.bno}" onclick="move_detail('${vo.bno}')" value="자세히">
+						    <input type="button" class="btn btn-primary" id="closebtn${vo.bno}" style="display: none;" onclick="move_close('${vo.bno}')" value="닫기"></p> --%>
 					    </td>
-					    <td>${vo.content}</td>
+					    <td class="col-md-4">${vo.content}</td>
 					
 						
-						<td>
+						<td class="col-md-2">
 							<div class="d-flex align-items-center">
 								<img src="${vo.mfilepath }" alt=" "
 									style="width: 45px; height: 45px" class="rounded-circle" />
@@ -167,13 +186,16 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 								</div>
 							</div>
 						</td>
-						<td>${vo.writedate}</td>
-						<td>${vo.readcnt }</td>
-						<td>${vo.filename}</td>
+						<td class="col-md-2">${vo.writedate}</td>
+						<td class="col-md-1">${vo.readcnt }</td>
+						<td class="col-md-1">${vo.filename}</td>
                     						
 					</tr>
 					
-				 <tr id="detail${vo.bno }" class="detail" style="display: none;">   
+				
+   <%--  TR안에 DIV를 사용하는것은 웹표준에 어긋나는것임으로, 테이블 펼치기는 하지 않음.                
+  <tr id="detail${vo.bno }" class="detail" style="display: none;">   
+  ==========================================  DETAIL ==================================================  
                     <td colspan = "6" >
                     <div class="album py-5 bg-light">
   
@@ -229,10 +251,12 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
    </div>
  </div>
- </div>
-
-				  </td>
-                 </tr>	
+ </div> 
+ </td> 
+ </tr>	
+ --%>
+				  
+             
                								 
 				</c:forEach>
 

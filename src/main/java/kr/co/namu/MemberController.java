@@ -56,6 +56,9 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public void logout(HttpSession session) {
 		session.removeAttribute("login_info");
+		/*
+		 * session.invalidate(); return "main/index";
+		 */
 	}
 	
 	// 회원가입 화면 요청
