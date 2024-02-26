@@ -170,7 +170,7 @@ public class BoardController {
 		  //db에서  댓글 목록을 조회해서 댓글 목록 화면에 출력
 		  model.addAttribute("list", service.board_comment_list(bno));
 		  System.out.println("bno: " + bno);
-		  return "board/comment/list";
+		  return "board/comment/comlist";
 	  } // comment_list()
       
 	  //댓글 변경 저장 처리 요청

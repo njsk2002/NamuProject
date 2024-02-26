@@ -189,6 +189,7 @@ function comment_regist() {
 	if(${empty login_info}) {
 		alert("댓글을 등록하려면 로그인하세요!");
 		return;	
+		// 바로 로그인화면으로 이동하는거 추가 필요
 	}
 	
 	if( $("#comment").val() == "" ) {
