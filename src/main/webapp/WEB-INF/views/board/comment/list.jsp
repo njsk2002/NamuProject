@@ -3,19 +3,24 @@
 <%@ taglib  uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:forEach items="${list }" var="vo" varStatus="status"> 
 	<!-- varStatus 인덱스값 찾아갈때 사용하는 속성 -->
-	${status.index eq 0 ? '<hr>' : '' }
+	<%-- ${status.index eq 0 ? '<hr>' : '' } --%>
+	
+	
+	
+   <div class="card card-body">	
 	<div data-id="${vo.cno }"> <!-- data-* 속성 : 특별한 조작 없이 HTML 요소에 추가 정보를 저장할 수 있게 해주는 속성 -->
 		${vo.name } [${vo.writedate }]
 		<c:if test="${login_info.id eq vo.writer }"><!-- 로그인한 사용자가 작성한 댓글 수정/삭제 기능 -->
 			<span style="float:right;">
-				<a class="btn-fill-s btn-modify-save">수정</a>
-				<a class="btn-fill-s btn-delete-cancel">삭제</a>
+				<a class="btn-fill-s btn-modify-save btn-primary">수정</a>
+				<a class="btn-fill-s btn-delete-cancel btn-warning">삭제</a>
 			</span>
 		</c:if>
 		<div class="original">${fn:replace(fn:replace(vo.comment, lf, '<br>' ), crlf, '<br>') }</div>
 		<div class="modify" style="display:none; margin-top:6px;"></div>
 	</div>
-	<hr>
+   </div>
+	<!-- <hr> -->
 </c:forEach>
 <script>
 /* closest()
@@ -39,17 +44,19 @@ $('.original').each(function(){
 
 	if( $(this).text() == '수정' ) {
 		//수정 텍스트 창 크기 고정
-		$div.children('.modify').css('height', $div.children('.original').height()-6); 
+		$div.children('.modify').css('height', $div.children('.original').height()+10); 
 
 		//줄바꿈 태그 변환
 		var tag = "<textarea style='width:99%; height:90%; resize:none'>" + $div.children('.original').html().replace(/<br>/g, '\n') + "</textarea>";
 		$div.children('.modify').html(tag);
 		display($div, 'm');
 	} else {
-		var comment = {id:$div.data('id'),
-						 content:$div.children('.modify').find('textarea').val() };
+		var comment = {cno:$div.data('id'),		
+				// 7행의 <div data-id="${vo.cno }">의 <div data-id의 id만 써주게 되면 ${vo.cno} 데이터가 입력됨.
+				// data-* 속성 : 특별한 조작 없이 HTML 요소에 추가 정보를 저장할 수 있게 해주는 속성		
+						 comment:$div.children('.modify').find('textarea').val() };
 		//alert(JSON.stringify(comment)); JSON형태로 잘 출력되는지 확인
-		
+			
 		$.ajax({
 			url: 'board/comment/update',
 			data: JSON.stringify(comment),
@@ -74,7 +81,10 @@ $('.original').each(function(){
 	} else {
 		if( confirm('정말 삭제하시겠습니까?') ) {
 			$.ajax({
-				url: 'board/comment/delete/' + $div.data('cno'),
+				url: 'board/comment/delete/' + $div.data('id'),
+				// 7행의 <div data-id="${vo.cno }">의 <div data-id의 id만 써주게 되면 ${vo.cno} 데이터가 입력됨.
+				// data-* 속성 : 특별한 조작 없이 HTML 요소에 추가 정보를 저장할 수 있게 해주는 속성		
+				
 				success: function() {
 					comment_list();
 				}, error: function(req, text) {

@@ -78,14 +78,16 @@
 		          <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
 		          <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
 		          <li><a href="list.bo" class="nav-link px-2 text-white">FAQs</a></li>
-		          <li><a href="#" class="nav-link px-2 text-white">About</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	 	 
+		          <li><a href="#" class="nav-link px-2 text-white">About</a></li> 	 
 		          <li><input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search"></li>     
 		        </ul>
 		        
 		        <c:if test="${!empty login_info }">
 		         <div class="text-end">	
 		         <div> ${login_info.name } [${login_info.id }] </div>
-		         <button type="button" class="btn btn-warning" onclick="go_logout()">Logout</button>		
+		         <!-- <button type="button" class="btn btn-warning" onclick="go_logout()">Logout</button>	 -->
+		         <button type="button" class="btn btn-warning" onclick="if( confirm('로그아웃 하시겠습니까?') ) { go_logout() } ">Logout</button>
+		         	
 		        </div>        
 		        </c:if>
 		        <c:if test="${empty login_info }">
@@ -116,4 +118,25 @@
   </div>
   
  </form>
+ 
 </header>
+
+ <script type="text/javascript">
+
+function go_logout() {
+	console.log("logout");
+	$.ajax({
+		type: "post",
+		url: "logout",
+		success: function() {
+			location.reload();
+		},
+		error: function(req, text) {
+			 alert(text + ': ' + req.status);
+	 	}
+	});
+}
+</script>
+
+</body>
+</html>

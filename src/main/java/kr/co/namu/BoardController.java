@@ -70,11 +70,7 @@ public class BoardController {
 		 service.board_insert(vo);
 		 return "redirect:list.bo";
 	 }//insert()
-	 
-	 @RequestMapping("/detaill.bo")
-	 public String test() {
-		 return "board/detail";
-	 }
+
 	 
 	 //방명록 상세 화면 요청 ====================================================================
 	 @RequestMapping("/detail.bo")
@@ -130,23 +126,18 @@ public class BoardController {
 			 * {f.delete();} }
 			 */
      } else {
-    	 //파일 첨부가 없는 경우 = if에 없고, else는 있었는데, 그대로 사용할 경우
-			/*
-			 * if(attach.isEmpty()) { File f = new File(uuid); if((f.exists()))
-			 * {f.delete();} } else { vo.setFilename(board.getFilename());
-			 * vo.setFilepath(board.getFilepath()); }
-			 */
+    	
      }
      
      service.board_update(vo);
      
      //기존 방법
-     //return "redirect:detail.bo?id=" + vo.getId();
+     return "redirect:detail.bo?bno=" + vo.getBno();
      
      //다른 방법
-      model.addAttribute("url","detail.bo");
+    //  model.addAttribute("url","detail.bo");
     //  model.addAttribute("id",vo.getId());
-      return "board/redirect";
+    //  return "board/redirect";
 	 }
 	 
 	 

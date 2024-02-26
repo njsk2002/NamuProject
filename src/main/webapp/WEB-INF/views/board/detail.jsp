@@ -90,7 +90,7 @@
 				        <img src="${vo.mfilepath }" alt="작성자" style="width: 45px; height: 45px" class="rounded-circle" /></p>
 				        <c:if test="${!empty vo.filename }"><p>파일명
 				          
-				          <a href="download.bo?id=${vo.bno }"><img src="img/paperclip.svg">${vo.filename }</a></p>
+				          <a href="download.bo?bno=${vo.bno }"><img src="img/paperclip.svg">${vo.filename }</a></p>
 			            </c:if>
 				        
 				    </div>          
@@ -120,17 +120,17 @@
 		
 				<div class="collapse" id="collapseExample">
 				  <div class="card card-body">			   
-				   <div style="margin:0 auto; padding-top:20px; width:500px;">
+				   <div style="margin:0 auto; padding-top:20px; width:100%;">
 						<div id="comment_regist" class="card card-body">
 							<span class="right"><input type="button" class="btn-fill-s" onclick="comment_regist()" value="등록"></span>
 							<textarea id="comment" style="width:99%; height:60px; margin-top:5px; resize:none;"></textarea>
 						</div>
 				  <div class="card card-body">			   
-				   <div style="margin:0 auto; padding-top:20px; width:500px;">
+				   <div style="margin:0 auto; padding-top:20px; width:100%;">
 						<div id="comment_list" style="text-align:left"></div>				
 				  </div>
 
-					</div>				   
+				 </div>				   
 				  </div>                      
               </div>
               
@@ -166,7 +166,7 @@ function showAttachImage(id) {
 	//첨부된 파일이 이미지인 경우 보여지게
 	var filename = '${vo.filename}';
 	var ext = filename.substring( filename.lastIndexOf('.') + 1 ).toLowerCase(); //확장자
-	var imgs = [ 'gif', 'jpg', 'jpeg', 'png', 'bmg' ];
+	var imgs = [ 'gif', 'jpg', 'jpeg', 'png', 'bmg','jfif' ];
 	if( imgs.indexOf(ext) > -1 ) {
 		var img = '<img src="' + '${vo.filepath}'.substring(1) + '" '
 			+ 'id="preview-img" ' 
